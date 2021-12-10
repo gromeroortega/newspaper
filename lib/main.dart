@@ -1,7 +1,7 @@
 /*Powered by Zharka */
 import 'package:flutter/material.dart';
-
-import 'screens/home_screen.dart';
+import 'package:newspaper/src/screens/screens.dart';
+import 'package:newspaper/src/theme/dark_theme.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,9 +11,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'NewPaper',
       debugShowCheckedModeBanner: false,
+      theme: darkTheme,
       initialRoute: 'home',
       routes: {
-        'home': (_) => HomeScreen(),
+        'home': (_) => TabScreen(),
       },
     );
   }
