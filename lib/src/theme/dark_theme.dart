@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
 
-final darkTheme = ThemeData.dark()
-    .copyWith(colorScheme: const ColorScheme.dark(primary: Color(0xff0c231e)));
+final darkTheme = ThemeData.dark().copyWith(
+    canvasColor: Colors.black.withOpacity(0.7),
+    colorScheme:
+        const ColorScheme.dark(primary: Color.fromRGBO(255, 87, 51, 1)));

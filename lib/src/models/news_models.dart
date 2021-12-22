@@ -32,45 +32,45 @@ class NewsResponse {
 
 class Article {
   Article({
-    this.source,
+    required this.source,
     this.author,
-    this.title,
+    required this.title,
     this.description,
-    this.url,
-    this.urlToImage,
+    required this.url,
+    required this.urlToImage,
     this.publishedAt,
     this.content,
   });
 
-  Source? source;
+  Source source;
   String? author;
-  String? title;
+  String title;
   String? description;
-  String? url;
-  String? urlToImage;
+  String url;
+  String urlToImage;
   DateTime? publishedAt;
   String? content;
 
   factory Article.fromJson(Map<String, dynamic> json) => Article(
         source: Source.fromJson(json["source"]),
-        author: json["author"] == null ? null : json["author"],
+        author: json["author"] ?? '',
         title: json["title"],
-        description: json["description"] == null ? null : json["description"],
-        url: json["url"],
-        urlToImage: json["urlToImage"] == null ? null : json["urlToImage"],
+        description: json["description"] ?? '',
+        url: json["url"] ?? '',
+        urlToImage: json["urlToImage"] ?? 'assets/noimage.jpg',
         publishedAt: DateTime.parse(json["publishedAt"]),
-        content: json["content"] == null ? null : json["content"],
+        content: json["content"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
-        "source": source!.toJson(),
-        "author": author == null ? null : author,
+        "source": source.toJson(),
+        "author": author ?? '',
         "title": title,
-        "description": description == null ? null : description,
+        "description": description ?? '',
         "url": url,
-        "urlToImage": urlToImage == null ? null : urlToImage,
+        "urlToImage": urlToImage,
         "publishedAt": publishedAt.toString(),
-        "content": content == null ? null : content,
+        "content": content ?? '',
       };
 }
 
@@ -84,12 +84,12 @@ class Source {
   String? name;
 
   factory Source.fromJson(Map<String, dynamic> json) => Source(
-        id: json["id"] == null ? null : json["id"],
+        id: json["id"] ?? '',
         name: json["name"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
+        "id": id ?? '',
         "name": name,
       };
 }

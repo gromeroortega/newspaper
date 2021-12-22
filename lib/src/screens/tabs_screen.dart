@@ -1,17 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:newspaper/src/services/services.dart';
 import 'package:provider/provider.dart';
+
+import 'package:newspaper/src/screens/screens.dart';
 
 class TabScreen extends StatelessWidget {
   const TabScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    const textStyle =
+        TextStyle(color: Color.fromRGBO(255, 87, 51, 1), fontFamily: 'Roboto');
     return ChangeNotifierProvider(
       create: (_) => _NavigatorModel(),
-      child: const Scaffold(
-        body: _Pages(),
-        bottomNavigationBar: _Navigetor(),
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.black.withOpacity(0.7),
+          leading: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            child: Text(
+              'Top',
+              style: textStyle,
+            ),
+          ),
+          title: const Text(
+            'News',
+            style: textStyle,
+          ),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.tune,
+                  color: Color.fromRGBO(255, 87, 51, 1),
+                ))
+          ],
+        ),
+        body: const _Pages(),
+        extendBody: true,
+        extendBodyBehindAppBar: true,
+        bottomNavigationBar: const _Navigetor(),
       ),
     );
   }
@@ -25,13 +53,18 @@ class _Navigetor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navigator = Provider.of<_NavigatorModel>(context);
-    final newsService = Provider.of<NewsService>(context);
+    //final newsService = Provider.of<NewsService>(context);
     return BottomNavigationBar(
+      unselectedItemColor: Colors.white70,
+      selectedItemColor: const Color.fromRGBO(255, 87, 51, 1),
       currentIndex: navigator._currentPage,
-      items: [
-        BottomNavigationBarItem(icon: Icon(Icons.ac_unit), label: 'Page'),
+      items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.view_headline), label: 'Top'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.baby_changing_station), label: 'perro')
+            icon: Icon(Icons.sports_baseball), label: 'Deportes'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.sports_esports), label: 'Tecnología'),
+        BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Espectaculo')
       ],
       onTap: (i) => navigator.currentPage = i,
     );
@@ -50,9 +83,7 @@ class _Pages extends StatelessWidget {
       controller: navigator.pageController,
       physics: const NeverScrollableScrollPhysics(),
       children: [
-        Container(
-          color: Colors.red,
-        ),
+        const Tab1Screen(),
         Container(
           color: Colors.blue,
         )
@@ -63,7 +94,8 @@ class _Pages extends StatelessWidget {
 
 class _NavigatorModel with ChangeNotifier {
   int _currentPage = 0;
-  PageController _pageController = PageController();
+  String currenTitle = 'Top';
+  final PageController _pageController = PageController();
 
   int get currentPage => _currentPage;
 
