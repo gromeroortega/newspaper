@@ -9,9 +9,9 @@ class TabScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const textStyle =
-        TextStyle(color: Color.fromRGBO(255, 87, 51, 1), fontFamily: 'Roboto');
+        TextStyle(color: Color.fromRGBO(183, 1, 83, 1), fontFamily: 'Roboto');
     return ChangeNotifierProvider(
-      create: (_) => _NavigatorModel(),
+      create: (_) => NavigatorModel(),
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -27,18 +27,10 @@ class TabScreen extends StatelessWidget {
             'News',
             style: textStyle,
           ),
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.tune,
-                  color: Color.fromRGBO(255, 87, 51, 1),
-                ))
-          ],
         ),
         body: const _Pages(),
         extendBody: true,
-        extendBodyBehindAppBar: true,
+        primary: false,
         bottomNavigationBar: const _Navigetor(),
       ),
     );
@@ -52,19 +44,16 @@ class _Navigetor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final navigator = Provider.of<_NavigatorModel>(context);
+    final navigator = Provider.of<NavigatorModel>(context);
     //final newsService = Provider.of<NewsService>(context);
     return BottomNavigationBar(
       unselectedItemColor: Colors.white70,
-      selectedItemColor: const Color.fromRGBO(255, 87, 51, 1),
-      currentIndex: navigator._currentPage,
+      selectedItemColor: const Color.fromRGBO(183, 1, 83, 1),
+      currentIndex: navigator.currentPage1,
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.view_headline), label: 'Top'),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Para ti'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.sports_baseball), label: 'Deportes'),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.sports_esports), label: 'Tecnología'),
-        BottomNavigationBarItem(icon: Icon(Icons.star), label: 'Espectaculo')
+            icon: Icon(Icons.new_label_sharp), label: 'All'),
       ],
       onTap: (i) => navigator.currentPage = i,
     );
@@ -78,31 +67,26 @@ class _Pages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final navigator = Provider.of<_NavigatorModel>(context);
+    final navigator = Provider.of<NavigatorModel>(context);
     return PageView(
       controller: navigator.pageController,
       physics: const NeverScrollableScrollPhysics(),
-      children: [
-        const Tab1Screen(),
-        Container(
-          color: Colors.blue,
-        )
-      ],
+      children: const [Tab1Screen(), Tab2Screen()],
     );
   }
 }
 
-class _NavigatorModel with ChangeNotifier {
-  int _currentPage = 0;
-  String currenTitle = 'Top';
+class NavigatorModel with ChangeNotifier {
+  int currentPage1 = 0;
+  String currenTitle = 'Para ti';
   final PageController _pageController = PageController();
 
-  int get currentPage => _currentPage;
+  int get currentPage => currentPage1;
 
   set currentPage(int value) {
-    _currentPage = value;
+    currentPage1 = value;
 
-    _pageController.animateToPage(_currentPage,
+    _pageController.animateToPage(currentPage1,
         curve: Curves.decelerate, duration: const Duration(milliseconds: 250));
     notifyListeners();
   }

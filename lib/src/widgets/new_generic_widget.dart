@@ -3,6 +3,7 @@ import 'package:newspaper/src/models/models.dart';
 
 class NewsGeneric extends StatelessWidget {
   final List<Article> headlines;
+
   const NewsGeneric({
     Key? key,
     required this.headlines,
@@ -13,21 +14,21 @@ class NewsGeneric extends StatelessWidget {
     return ListView.builder(
       itemCount: headlines.length,
       itemBuilder: (_, int index) {
+        Color color = const Color.fromRGBO(183, 1, 83, 1);
         final Article article = headlines[index];
-
-        return newGeneric(article);
+        return newGeneric(article, color);
       },
     );
   }
 
-  Padding newGeneric(Article article) {
+  Padding newGeneric(Article article, Color color) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
         children: [
           imageNew(article),
           const SizedBox(),
-          headlineNew(article),
+          headlineNew(article, color),
           const Divider(
             thickness: 1,
             height: 20,
@@ -48,7 +49,7 @@ class NewsGeneric extends StatelessWidget {
                 image: NetworkImage(article.urlToImage)));
   }
 
-  Padding headlineNew(Article article) {
+  Padding headlineNew(Article article, Color color) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       child: Column(
@@ -64,44 +65,43 @@ class NewsGeneric extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          footerNew(article)
+          footerNew(article, color)
         ],
       ),
     );
   }
 
-  Row footerNew(Article article) {
-    const Color orange = Color.fromRGBO(255, 87, 51, 1);
+  Row footerNew(Article article, Color color) {
     String source = article.source.name ?? 'Anónimo';
     return Row(
       children: [
         Text(
           source,
-          style: const TextStyle(color: orange, fontFamily: 'Roboto'),
+          style: TextStyle(color: color, fontFamily: 'Roboto'),
         ),
         Expanded(child: Container()),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
           child: Icon(
             Icons.favorite_border,
             size: 18,
-            color: orange,
+            color: color,
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
           child: Icon(
             Icons.share,
             size: 18,
-            color: orange,
+            color: color,
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
           child: Icon(
             Icons.tune,
             size: 18,
-            color: orange,
+            color: color,
           ),
         ),
       ],
